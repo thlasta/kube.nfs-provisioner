@@ -1,15 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nfs-pod-provisioner
+  labels:
+    app: nfs-provisioner
+  name: nfs-provisioner
 spec:
+  selector:
+    matchLabels:
+      app: nfs-provisioner
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: nfs-pod-provisioner
+        app: nfs-provisioner
     spec:
       serviceAccountName: nfs-pod-provisioner-sa # name of service account created in rbac.yaml
       containers:
