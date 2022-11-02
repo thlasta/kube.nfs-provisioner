@@ -17,7 +17,7 @@ spec:
         app: nfs-provisioner
     spec:
       nodeSelector:
-        kubernetes.io/role: master
+        kubernetes.io/hostname: "hlasta-pi-144"
       serviceAccountName: nfs-pod-provisioner-sa # name of service account created in rbac.yaml
       containers:
         - name: nfs-provisioner
