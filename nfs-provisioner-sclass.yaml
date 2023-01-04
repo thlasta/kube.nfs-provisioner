@@ -9,7 +9,15 @@ parameters:
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: nfs-storageclass # IMPORTANT pvc needs to mention this name
+  name: nfs-storageclass-1 # IMPORTANT pvc needs to mention this name
+provisioner: nfs-storage-class-1 # name can be anything
+parameters:
+  archiveOnDelete: "false"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-storageclass-2 # IMPORTANT pvc needs to mention this name
 provisioner: nfs-storage-class-2 # name can be anything
 parameters:
   archiveOnDelete: "false"
