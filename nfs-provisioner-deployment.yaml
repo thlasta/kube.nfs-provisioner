@@ -20,10 +20,10 @@ spec:
         kubernetes.io/hostname: "hlasta-pi-144"
       serviceAccountName: nfs-pod-provisioner-sa # name of service account created in rbac.yaml
       containers:
-        - name: nfs-provisioner
+        - name: nfs-144-provisioner
           image: vbouchaud/nfs-client-provisioner
           volumeMounts:
-            - name: nfs-provisioner-v
+            - name: nfs-provisioner-v-144
               mountPath: /persistentvolumes
           env:
             - name: PROVISIONER_NAME # do not change
@@ -32,8 +32,25 @@ spec:
               value: 192.168.0.144 # Ip of the NFS SERVER
             - name: NFS_PATH # do not change
               value: /mnt/usb/volume/1/share/kubernetes/ # path to nfs directory setup
+
+        - name: nfs-140-provisioner
+          image: vbouchaud/nfs-client-provisioner
+          volumeMounts:
+            - name: nfs-provisioner-v-140
+              mountPath: /persistentvolumes
+          env:
+            - name: PROVISIONER_NAME # do not change
+              value: nfs-storage-class-2 # SAME AS PROVISONER NAME VALUE IN STORAGECLASS
+            - name: NFS_SERVER # do not change
+              value: 192.168.0.140 # Ip of the NFS SERVER
+            - name: NFS_PATH # do not change
+              value: /mnt/usb/misc/share/kubernetes/ # path to nfs directory setup
       volumes:
-        - name: nfs-provisioner-v # same as volumemouts name
+        - name: nfs-provisioner-v-144 # same as volumemouts name
           nfs:
             server: 192.168.0.144
             path: /mnt/usb/volume/1/share/kubernetes/
+        - name: nfs-provisioner-v-140 # same as volumemouts name
+          nfs:
+            server: 192.168.0.140
+            path: /mnt/usb/misc/share/kubernetes/
